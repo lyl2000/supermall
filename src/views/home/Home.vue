@@ -1,13 +1,22 @@
 <template>
-  <h2>There is My Home!</h2>
+  <div id="home">
+    <nav-bar class="home-nav"><div slot="center">2333</div></nav-bar>
+  </div>
 </template>
 
 <script>
+import NavBar from 'components/common/navbar/NavBar'
 export default {
-
+  name: 'Home',
+  components: {
+    NavBar
+  }
 }
 </script>
 
 <style>
-
+.home-nav {
+  background-color: var(--color-tint);
+  color: #fff;
+}
 </style>
