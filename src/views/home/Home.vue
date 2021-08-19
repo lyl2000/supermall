@@ -1,22 +1,31 @@
 <template>
   <div id="home">
     <nav-bar class="home-nav"><div slot="center">hahaha</div></nav-bar>
-    <div class="block">
-      <el-carousel height="150px">
-        <el-carousel-item v-for="item in 6" :key="item">
-          <h3 class="small">{{ item }}</h3>
-        </el-carousel-item>
-      </el-carousel>
-    </div>
+    <home-swiper :banner="banner"></home-swiper>
   </div>
 </template>
 
 <script>
 import NavBar from 'components/common/navbar/NavBar'
+import HomeSwiper from './childComps/HomeSwiper'
+
+import {getHomeMultidata} from 'network/home'
 export default {
   name: 'Home',
   components: {
-    NavBar
+    NavBar,
+    HomeSwiper
+  },
+  data() {
+    return {
+      banner: []
+    }
+  },
+  created() {
+    getHomeMultidata().then(res => {
+      console.log(res);
+      this.banner = res.data.data.banner.list
+    })
   }
 }
 </script>
@@ -25,20 +34,5 @@ export default {
   .home-nav {
     background-color: var(--color-tint);
     color: #fff;
-  }
-  .el-carousel__item h3 {
-    color: #475669;
-    font-size: 14px;
-    opacity: 0.75;
-    line-height: 150px;
-    margin: 0;
-  }
-
-  .el-carousel__item:nth-child(2n) {
-     background-color: #99a9bf;
-  }
-
-  .el-carousel__item:nth-child(2n+1) {
-     background-color: #d3dce6;
   }
 </style>
