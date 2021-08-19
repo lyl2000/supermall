@@ -2,7 +2,6 @@
   <div id="main-tab-bar">
     <tab-bar>
       <tab-bar-item path="/home">
-        <!-- <img slot="item-icon" src="..\..\..\assets\images\tabbar\home.svg" alt="" /> -->
         <img slot="item-icon" src="~assets/images/tabbar/home.svg" alt="" />
         <img slot="item-icon-active" src="~assets/images/tabbar/home_active.svg" alt="" />
         <div slot="item-text">首页</div>
