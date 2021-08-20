@@ -1,9 +1,9 @@
 <template>
   <div class="block">
     <el-carousel height="150px">
-      <el-carousel-item v-for="item in banner" :key="item">
+      <el-carousel-item v-for="item in banner" :key="item.link">
         <a :href="item.link">
-          <el-image :src="item.image" :alt="item.title"/>
+          <el-image :src="item.image" alt=""/>
         </a>
       </el-carousel-item>
     </el-carousel>
