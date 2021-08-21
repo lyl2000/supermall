@@ -43,6 +43,7 @@ export default {
     text-align: center;
     height: 40px;
     line-height: 40px;
+    background-color: #fff;
   }
   .el-col span {
     padding: 5px;
