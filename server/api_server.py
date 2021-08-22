@@ -2,6 +2,7 @@ from flask import Flask, jsonify, make_response, request
 import requests
 import json
 import os
+import random
 
 PATH = os.path.dirname(os.path.abspath(__file__))
 
@@ -13,11 +14,13 @@ def get_image():
     res = requests.get(url=url, allow_redirects=False)
     return res.headers['location']
 
-def get_data(num=10):
+def get_data(num=30):
+    title = ['连衣裙', '衣服', '裤子', '袜子']
     return {"data": {
-        "pop": {"list": [get_image() for _ in range(num)]},
-        "news": {"list": [get_image() for _ in range(num)]},
-        "sell": {"list": [get_image() for _ in range(num)]}}}
+        "pop": {"list": [{"title": random.choice(title), "price": round(random.random() * 100, 2), "collect": random.randint(1, 100), "img": get_image()} for _ in range(num)]},
+        "news": {"list": [{"title": random.choice(title), "price": round(random.random() * 100, 2), "collect": random.randint(1, 100), "img": get_image()} for _ in range(num)]},
+        "sell": {"list": [{"title": random.choice(title), "price": round(random.random() * 100, 2), "collect": random.randint(1, 100), "img": get_image()} for _ in range(num)]}
+    }}
 
 def wjson(fname, data):
     fname = os.path.join(PATH, fname)
@@ -30,8 +33,8 @@ def rjson(fname):
         return json.load(f)
 
 def prepare():
+    # wjson(r'multidata.json', get_multidata())
     wjson(r'data.json', get_data())
-    wjson(r'multidata.json', get_multidata())
 
 
 server = Flask(__name__)
@@ -45,11 +48,11 @@ def home_multidata():
     return res
 
 @server.route('/home/data', methods=['GET'])
-def home_data():
+def home_data(num=10):
     t = request.values.get('type')
     p = int(request.values.get('page'))
     data = rjson(r'data.json')
-    res = make_response(jsonify(data["data"][t]["list"][(p-1)*3:p*3]), 200)
+    res = make_response(jsonify(data["data"][t]["list"][(p-1)*num:p*num]), 200)
     res.headers['Access-Control-Allow-Origin'] = '*'
     return res
 
@@ -57,4 +60,3 @@ if __name__ == '__main__':
     # prepare()
     server.config['JSON_AS_ASCII'] = False
     server.run(host='127.0.0.1', port=8888, debug=True)
-

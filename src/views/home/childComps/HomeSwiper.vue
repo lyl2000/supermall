@@ -1,6 +1,6 @@
 <template>
   <div class="block">
-    <el-carousel height="150px">
+    <el-carousel height="190px" width="100%">
       <el-carousel-item v-for="item in banner" :key="item.link">
         <a :href="item.link">
           <el-image :src="item.image" alt=""/>
@@ -30,13 +30,5 @@ export default {
   opacity: 0.75;
   line-height: 150px;
   margin: 0;
-}
-
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
 }
 </style>

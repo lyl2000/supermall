@@ -47,13 +47,15 @@ export default {
       this.recommend = res.data.data.recommend.list;
     });
     this.getData('pop');
+    this.getData('news');
+    this.getData('sell');
   },
   methods: {
     getData(type) {
       let page = this.goods[type].page + 1;
       getHomeData(type, page).then((res) => {
         this.goods[type].list.push(...res.data);
-        console.log(this.goods[type].list);
+        this.goods[type].page += 1;
       })
     }
   }
@@ -74,6 +76,6 @@ export default {
 .tab-control {
   position: sticky;
   top: 44px;
-  z-index: 1;
+  z-index: 9;
 }
 </style>
