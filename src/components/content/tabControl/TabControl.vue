@@ -31,6 +31,7 @@ export default {
   methods: {
     itemClick(index) {
       this.curIdx = index;
+      this.$emit("tabClick", index);
     }
   }
 }

@@ -6,8 +6,9 @@
     <tab-control
       class="tab-control"
       :titles="['精选', '关注', '特别']"
+      @tabClick="changeTitle"
     ></tab-control>
-    <home-images :urls="goods['pop'].list"></home-images>
+    <home-images :urls="showGoods"></home-images>
   </div>
 </template>
 
@@ -30,6 +31,11 @@ export default {
     HomeImages,
     TabControl,
   },
+  computed: {
+    showGoods() {
+      return this.goods[this.curType].list;
+    }
+  },
   data() {
     return {
       banner: [],
@@ -38,25 +44,32 @@ export default {
         'pop': {page: 0, list: []},
         'news': {page: 0, list: []},
         'sell': {page: 0, list: []},
-      }
+      },
+      curType: 'pop'
     };
   },
   created() {
-    getHomeMultidata().then((res) => {
-      this.banner = res.data.data.banner.list;
-      this.recommend = res.data.data.recommend.list;
-    });
+    this.getMultiData();
     this.getData('pop');
     this.getData('news');
     this.getData('sell');
   },
   methods: {
+    getMultiData() {
+      getHomeMultidata().then((res) => {
+        this.banner = res.data.data.banner.list;
+        this.recommend = res.data.data.recommend.list;
+      });
+    },
     getData(type) {
       let page = this.goods[type].page + 1;
       getHomeData(type, page).then((res) => {
         this.goods[type].list.push(...res.data);
         this.goods[type].page += 1;
       })
+    },
+    changeTitle(index) {
+      this.curType = Object.keys(this.goods)[index];
     }
   }
 };

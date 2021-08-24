@@ -6,10 +6,10 @@
         <img slot="item-icon-active" src="~assets/images/tabbar/home_active.svg" alt="" />
         <div slot="item-text">首页</div>
       </tab-bar-item>
-      <tab-bar-item path="/message">
+      <tab-bar-item path="/category">
         <img slot="item-icon" src="~assets/images/tabbar/home.svg" alt="" />
         <img slot="item-icon-active" src="~assets/images/tabbar/home_active.svg" alt="" />
-        <div slot="item-text">动态</div>
+        <div slot="item-text">分类</div>
       </tab-bar-item>
       <tab-bar-item path="/blog">
         <img slot="item-icon" src="~assets/images/tabbar/home.svg" alt="" />

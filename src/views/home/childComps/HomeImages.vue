@@ -1,9 +1,13 @@
 <template>
   <div class="demo-image">
     <div class="block" v-for="url in urls" :key="url.img">
-      <a :href="url.img"><el-image :src="url.img" :url="url.img"></el-image></a>
-      <p class="img-title">{{url.title}}</p>
-      <p class="img-desc">{{url.price}} ⭐{{url.collect}}</p>
+      <div class="demo-image__preview">
+        <el-image :src="url.img" :url="url.img" :preview-src-list="[url.img]"></el-image>
+      </div>
+      <a :href="url.img">
+        <p class="img-title">{{url.title}}</p>
+        <p class="img-desc">{{url.price}} ⭐{{url.collect}}</p>
+      </a>
     </div>
   </div>
 </template>
