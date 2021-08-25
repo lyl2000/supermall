@@ -1,14 +1,18 @@
 <template>
   <div class="home">
     <nav-bar class="home-nav"><div slot="center">hahaha</div></nav-bar>
-    <home-swiper :banner="banner"></home-swiper>
-    <home-recommend :recommend="recommend"></home-recommend>
-    <tab-control
-      class="tab-control"
-      :titles="['精选', '关注', '特别']"
-      @tabClick="changeTitle"
-    ></tab-control>
-    <home-images :urls="showGoods"></home-images>
+    <div class="wrapper">
+      <div class="content">
+        <home-swiper :banner="banner"></home-swiper>
+        <home-recommend :recommend="recommend"></home-recommend>
+        <tab-control
+          class="tab-control"
+          :titles="['精选', '关注', '特别']"
+          @tabClick="changeTitle"
+        ></tab-control>
+        <home-images :urls="showGoods"></home-images>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -21,6 +25,7 @@ import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/tabControl/TabControl";
 
 import { getHomeMultidata, getHomeData } from "network/home";
+import BScroll from 'better-scroll';
 
 export default {
   name: "Home",
@@ -53,6 +58,18 @@ export default {
     this.getData('pop');
     this.getData('news');
     this.getData('sell');
+  },
+  mounted() {
+    this.scroll = new BScroll('.wrapper', {
+      probeType: 3,
+      pullUpLoad: true
+    });
+    this.scroll.on('scroll', (position) => {
+      console.log(position);
+    });
+    this.scroll.on('pullingUp', () => {
+      console.log('上拉加载更多');
+    })
   },
   methods: {
     getMultiData() {
