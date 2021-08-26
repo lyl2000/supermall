@@ -1,18 +1,22 @@
 <template>
   <div class="home">
-    <nav-bar class="home-nav"><div slot="center">hahaha</div></nav-bar>
-    <div class="wrapper">
-      <div class="content">
-        <home-swiper :banner="banner"></home-swiper>
-        <home-recommend :recommend="recommend"></home-recommend>
-        <tab-control
-          class="tab-control"
-          :titles="['精选', '关注', '特别']"
-          @tabClick="changeTitle"
-        ></tab-control>
-        <home-images :urls="showGoods"></home-images>
-      </div>
-    </div>
+    <nav-bar class="home-nav">
+      <div slot="center">hahaha</div>
+    </nav-bar>
+    <home-swiper :banner="banner" />
+    <home-recommend :recommend="recommend" />
+    <tab-control
+      class="tab-control"
+      :titles="['精选', '关注', '特别']"
+      @tabClick="changeTitle"
+    />
+    <home-images :urls="showGoods" @pullingUp="loadMore"/>
+    <el-backtop
+      target=".home"
+      :visibility-height="5"
+      :bottom="80"
+      :right="20"
+    />
   </div>
 </template>
 
@@ -23,9 +27,9 @@ import HomeImages from "./childComps/HomeImages";
 
 import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/tabControl/TabControl";
+import Scroll from "components/common/scroll/Scroll";
 
 import { getHomeMultidata, getHomeData } from "network/home";
-import BScroll from 'better-scroll';
 
 export default {
   name: "Home",
@@ -35,41 +39,30 @@ export default {
     HomeRecommend,
     HomeImages,
     TabControl,
+    Scroll,
   },
   computed: {
     showGoods() {
       return this.goods[this.curType].list;
-    }
+    },
   },
   data() {
     return {
       banner: [],
       recommend: [],
       goods: {
-        'pop': {page: 0, list: []},
-        'news': {page: 0, list: []},
-        'sell': {page: 0, list: []},
+        pop: { page: 0, list: [] },
+        news: { page: 0, list: [] },
+        sell: { page: 0, list: [] },
       },
-      curType: 'pop'
+      curType: "pop",
     };
   },
   created() {
     this.getMultiData();
-    this.getData('pop');
-    this.getData('news');
-    this.getData('sell');
-  },
-  mounted() {
-    this.scroll = new BScroll('.wrapper', {
-      probeType: 3,
-      pullUpLoad: true
-    });
-    this.scroll.on('scroll', (position) => {
-      console.log(position);
-    });
-    this.scroll.on('pullingUp', () => {
-      console.log('上拉加载更多');
-    })
+    this.getData("pop");
+    this.getData("news");
+    this.getData("sell");
   },
   methods: {
     getMultiData() {
@@ -83,18 +76,23 @@ export default {
       getHomeData(type, page).then((res) => {
         this.goods[type].list.push(...res.data);
         this.goods[type].page += 1;
-      })
+      });
     },
     changeTitle(index) {
       this.curType = Object.keys(this.goods)[index];
+    },
+    loadMore() {
+      this.getData(this.curType);
     }
-  }
+  },
 };
 </script>
 
-<style>
+<style scoped>
 .home {
   padding-bottom: 64px;
+  height: 100vh;
+  overflow-x: hidden;
 }
 .home-nav {
   background-color: var(--color-tint);
@@ -107,5 +105,13 @@ export default {
   position: sticky;
   top: 44px;
   z-index: 9;
+}
+.content {
+  overflow: hidden;
+  position: absolute;
+  top: 44px;
+  bottom: 49px;
+  left: 0;
+  right: 0;
 }
 </style>

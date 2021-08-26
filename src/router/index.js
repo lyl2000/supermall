@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 
 const Home = () => import('views/home/Home');
 const Category = () => import('views/category/Category');
+const Mine = () => import('views/mine/Mine');
 
 Vue.use(VueRouter);
 
@@ -18,6 +19,10 @@ const routes = [
   {
     path: '/category',
     component: Category
+  },
+  {
+    path: '/mine',
+    component: Mine
   }
 ]
 

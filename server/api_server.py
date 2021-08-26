@@ -48,7 +48,7 @@ def home_multidata():
     return res
 
 @server.route('/home/data', methods=['GET'])
-def home_data(num=10):
+def home_data(num=3):
     t = request.values.get('type')
     p = int(request.values.get('page'))
     data = rjson(r'data.json')
