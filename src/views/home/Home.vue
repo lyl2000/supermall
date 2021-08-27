@@ -1,22 +1,12 @@
 <template>
   <div class="home">
-    <nav-bar class="home-nav">
-      <div slot="center">hahaha</div>
-    </nav-bar>
-    <home-swiper :banner="banner" />
-    <home-recommend :recommend="recommend" />
-    <tab-control
-      class="tab-control"
-      :titles="['精选', '关注', '特别']"
-      @tabClick="changeTitle"
-    />
-    <home-images :urls="showGoods" @pullingUp="loadMore"/>
-    <el-backtop
-      target=".home"
-      :visibility-height="5"
-      :bottom="80"
-      :right="20"
-    />
+    <home-images :urls="showGoods" @pullingUp="loadMore">
+      <nav-bar class="home-nav"> <div slot="center">hahaha</div> </nav-bar>
+      <home-swiper :banner="banner" />
+      <home-recommend :recommend="recommend" />
+      <tab-control class="tab-control" :titles="['精选', '关注', '特别']" @tabClick="changeTitle" />
+    </home-images>
+    <el-backtop target=".home" :visibility-height="5" :bottom="80" :right="20" />
   </div>
 </template>
 

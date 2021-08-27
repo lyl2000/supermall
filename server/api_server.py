@@ -14,7 +14,7 @@ def get_image():
     res = requests.get(url=url, allow_redirects=False)
     return res.headers['location']
 
-def get_data(num=30):
+def get_data(num=100):
     title = ['连衣裙', '衣服', '裤子', '袜子']
     return {"data": {
         "pop": {"list": [{"title": random.choice(title), "price": round(random.random() * 100, 2), "collect": random.randint(1, 100), "img": get_image()} for _ in range(num)]},

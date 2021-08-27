@@ -1,9 +1,11 @@
 <template>
-  <div class="infinite-list-wrapper" style="overflow: auto">
+  <div class="infinite-list-wrapper" style="overflow: auto;position: absolute;top: 0px;bottom: 0px;left: 0;right: 0;padding-bottom: 64px;">
+    <slot></slot>
     <ul
       class="list"
       v-infinite-scroll="load"
       infinite-scroll-disabled="disabled"
+      infinite-scroll-distance="49px"
     >
       <li v-for="url in urls" class="infinite-list-item" :key="url.img">
         <div class="demo-image__preview">
@@ -41,7 +43,7 @@ export default {
   },
   computed: {
     noMore() {
-      return this.urls.length >= 30;
+      return this.urls.length >= 100;
     },
     disabled() {
       return this.loading || this.noMore;

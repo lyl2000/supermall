@@ -1,5 +1,5 @@
 <template>
-  <div class="infinite-list-wrapper" style="overflow: auto">
+  <div class="infinite-list-wrapper" style="overflow: auto;padding-bottom: 64px;height: 100vh">
     <ul
       class="list"
       v-infinite-scroll="load"
