@@ -1,11 +1,11 @@
 <template>
   <div class="home">
-    <home-images :urls="showGoods" @pullingUp="loadMore">
+    <home-scroll :urls="showGoods" @pullingUp="loadMore">
       <nav-bar class="home-nav"> <div slot="center">hahaha</div> </nav-bar>
       <home-swiper :banner="banner" />
       <home-recommend :recommend="recommend" />
       <tab-control class="tab-control" :titles="['精选', '关注', '特别']" @tabClick="changeTitle" />
-    </home-images>
+    </home-scroll>
     <el-backtop target=".home" :visibility-height="5" :bottom="80" :right="20" />
   </div>
 </template>
@@ -13,11 +13,10 @@
 <script>
 import HomeSwiper from "./childComps/HomeSwiper";
 import HomeRecommend from "./childComps/HomeRecommend";
-import HomeImages from "./childComps/HomeImages";
+import HomeScroll from "./childComps/HomeScroll";
 
 import NavBar from "components/common/navbar/NavBar";
 import TabControl from "components/content/tabControl/TabControl";
-import Scroll from "components/common/scroll/Scroll";
 
 import { getHomeMultidata, getHomeData } from "network/home";
 
@@ -27,9 +26,8 @@ export default {
     NavBar,
     HomeSwiper,
     HomeRecommend,
-    HomeImages,
+    HomeScroll,
     TabControl,
-    Scroll,
   },
   computed: {
     showGoods() {
